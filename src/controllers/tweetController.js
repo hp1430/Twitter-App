@@ -16,7 +16,8 @@ export const getTweetsById = (req, res) =>{
 export const createTweet = async (req, res) => {
     try {
         const response = await createTweetService({
-            body: req.body.body
+            body: req.body.body,
+            image: req.file ? req.file.cloudinaryUrl : null
         })
         return res.status(201).json({
             success: true,
@@ -25,7 +26,7 @@ export const createTweet = async (req, res) => {
         })
     }
     catch(error) {
-        console.log("error");
+        console.log(error);
         if(error.status) {
             return res.status(error.status).json({
                 message: error.message,
